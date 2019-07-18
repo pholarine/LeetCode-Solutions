@@ -1,0 +1,35 @@
+let l1 =[2,4,3];
+let l2= [5,6,4]
+
+
+// This Code is not accepted by leet code but it works 
+var addTwoNumbers = function(l1, l2) {
+    // function to make the array reverse and convert it to a number
+    reverseNumber= (inputArray) => parseInt(inputArray.reverse().join(''));
+    let L1Reverse = reverseNumber(l1);
+    let l2Reverse = reverseNumber(l2);
+    let sumReverse = (L1Reverse + l2Reverse)
+    let out= Array.from(sumReverse.toString()).reverse();
+    return out;    
+    
+};
+
+// LeetCode accepted solution
+
+var addTwoNumbers = function(l1, l2) {
+    let bin = null
+    const carry = arguments[2]
+    if (l1 || l2) {
+        const value2 = l2 ? l2.val : 0
+        const value1 = l1 ? l1.val : 0
+        const nxt2 = l2 ? l2.next : null
+        const nxt1 = l1 ? l1.next : null
+        const value = carry ? value1 + value2 + 1 : value1 + value2
+        bin = new ListNode(value % 10)
+        bin.next = addTwoNumbers(nxt1, nxt2, value >= 10)  
+    } else if (carry) {
+        bin = new ListNode(1)
+        bin.next = null
+    }
+    return bin
+};
